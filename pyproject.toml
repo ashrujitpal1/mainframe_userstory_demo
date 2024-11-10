@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "mainframe_userstory_demo"
+version = "0.1.0"
+description = "mainframe-userstory-demo using crewAI"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<=3.13"
+crewai = { extras = ["tools"], version = ">=0.70.1,<1.0.0" }
+
+
+[tool.poetry.scripts]
+mainframe_userstory_demo = "mainframe_userstory_demo.main:run"
+run_crew = "mainframe_userstory_demo.main:run"
+train = "mainframe_userstory_demo.main:train"
+replay = "mainframe_userstory_demo.main:replay"
+test = "mainframe_userstory_demo.main:test"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
