@@ -1,15 +1,134 @@
-research_task:
+# userstorycreator_task:
+#   description: >
+#     Review Business Rules: Understand the below business rules and create Jira User stories.
+#             Business Rules: {topic}
+#         User Story Formatting: For each business rule, create a Jira User Story in the format:
+#             Title: A concise summary (e.g., "As a [role], I want to [action], so that [benefit].")
+#             Acceptance Criteria: List the conditions required for the User Story to be considered complete.
+#             Dependencies: Document any dependencies or related systems (e.g., mainframe-specific details).
+#             Technical Notes: Include any technical constraints, limitations, or integration notes for mainframe systems to help developers understand the context.
+#         Additional Details:
+#             Ensure clarity in language for both technical and non-technical stakeholders.
+#             Prioritize stories based on dependency mapping or business importance if known
+#   expected_output: >
+#     A collection of Jira User Stories with corresponding Acceptance Criteria, Technical Notes, and Dependencies.
+#   agent: userstorycreator
+
+
+# # User story reviewer task
+# userstoryreviewer_task:
+#   description: >
+#     Review Jira User Stories: Review the Jira User Stories and ensure they meet the business requirements.
+#     Ensure the stories are clear, concise, and aligned with the business rules.
+#     Check for any missing or incorrect information.
+#     If any issues are found, provide suggestions for improvement.
+#   expected_output: >
+#     A collection of Jira User Stories with corresponding Acceptance Criteria, Technical Notes, and Dependencies.
+#   agent: userstoryreviewer
+
+# User code developer task
+javacodewriter_task:
   description: >
-    Review Business Rules: Understand the below business rules and create Jira User stories.
-            Business Rules: {topic}
-        User Story Formatting: For each business rule, create a Jira User Story in the format:
-            Title: A concise summary (e.g., "As a [role], I want to [action], so that [benefit].")
-            Acceptance Criteria: List the conditions required for the User Story to be considered complete.
-            Dependencies: Document any dependencies or related systems (e.g., mainframe-specific details).
-            Technical Notes: Include any technical constraints, limitations, or integration notes for mainframe systems to help developers understand the context.
-        Additional Details:
-            Ensure clarity in language for both technical and non-technical stakeholders.
-            Prioritize stories based on dependency mapping or business importance if known
+    You are a skilled Java microservice architect. Based on the provided Jira user stories, your task is to:
+
+    1. Analyze the user story to identify the functionality, data requirements, endpoints, and acceptance criteria.
+    2. Generate a complete Java microservice that meets the specifications in the user story.
+    3. Implement a REST API using Spring Boot, with well-structured layers: 
+        - **Controller**: Expose endpoints to handle HTTP requests as described in the story.
+        - **Service**: Business logic layer that processes and coordinates the operations.
+        - **Repository**: Data access layer for CRUD operations if a database is specified.
+    4. If the user story requires a database, create the necessary **Entity** classes and define repository interfaces using Spring Data JPA.
+    5. Implement error handling, input validation, and any additional utility classes or configurations needed.
+    6. Follow best practices, including Java naming conventions, encapsulation, and meaningful comments.
+
+    ### Example Structure of the Microservice:
+
+    - **Controller Class**: Define REST endpoints with mappings as described.
+    - **Service Class**: Include methods for the main business logic.
+    - **Repository Class**: Use Spring Data JPA for database interactions, if applicable.
+    - **Data Models**: Define entity classes with JPA annotations if a database is involved.
+    - **Configuration**: Configure properties like application.yml, if relevant.
+
+    **Input**: 
+
+    {topic}
+
   expected_output: >
-    A collection of Jira User Stories with corresponding Acceptance Criteria, Technical Notes, and Dependencies.
-  agent: researcher
+    Implement all functionality, acceptance criteria, and endpoints from the user story.
+    Use annotations like @RestController, @Service, and @Repository as needed.
+    Include meaningful comments and JavaDoc for methods to clarify functionality.
+  agent: javacodewriter
+
+
+# # User unit test case developer task
+# javaunittestcasewriter_task:
+#   description: >
+#     You are a Java unit testing expert tasked with generating JUnit test cases for a Spring Boot microservice, based on the original Jira user story requirements and the Java code already generated from it. Your goal is to verify that all functionalities meet the acceptance criteria.
+
+#     ### Instructions
+
+#     1. **Retrieve Generated Java Code from Memory**:
+#       - Access the Java classes and methods previously generated from the Jira user story.
+#       - Reference the specific functionalities, including Controller, Service, Repository, and any utility classes.
+
+#     2. **Define Test Coverage**:
+#       - For each functionality described in the user story, create detailed unit test cases to ensure they meet the specified acceptance criteria.
+#       - Ensure test cases are structured to cover all possible input scenarios:
+#           - **Happy Path**: Typical valid inputs and expected outputs.
+#           - **Edge Cases**: Boundary or extreme values.
+#           - **Error Handling**: Invalid inputs and exceptions.
+#       - For database interactions (Repository), mock data where necessary.
+#       - For service and controller methods, mock dependencies and focus on verifying the business logic.
+
+#     3. **Testing Framework**:
+#       - Use JUnit 5 for writing test cases.
+#       - Use Mockito for mocking dependencies (e.g., service or repository classes).
+#       - Structure the test classes to follow standard Java conventions:
+#         - **Controller Tests**: Verify HTTP request mappings, response status, and data returned.
+#         - **Service Tests**: Test business logic, including conditional paths and expected data processing.
+#         - **Repository Tests**: Use mock data or in-memory databases to test data retrieval and storage.
+
+#     4. **Expected Output Format**:
+#       - Write the JUnit test cases for each method based on the specific details in the user story and Java code.
+#       - Each test should include descriptive names, clear Arrange-Act-Assert (AAA) format, and appropriate comments.
+
+#     ### Example Output
+
+#     For each Java class and method, provide corresponding test cases.
+
+#     **Example for Service Layer**
+#     ```java
+#     import static org.mockito.Mockito.*;
+#     import static org.junit.jupiter.api.Assertions.*;
+#     import org.junit.jupiter.api.Test;
+#     import org.mockito.InjectMocks;
+#     import org.mockito.Mock;
+#     import org.springframework.boot.test.context.SpringBootTest;
+
+#     @SpringBootTest
+#     public class ModelServiceTest {
+
+#         @Mock
+#         private ModelRepository modelRepository;
+
+#         @InjectMocks
+#         private ModelService modelService;
+
+#         @Test
+#         public void testMethodName_whenValidInput_thenExpectedOutput() {
+#             // Arrange
+#             // Mock necessary data and set expectations
+
+#             // Act
+#             // Call the method to test
+
+#             // Assert
+#             // Verify the outcome
+#         }
+#     }
+
+#   expected_output: >
+#     Create JUnit test cases for each component in the generated code, aligned with the user story acceptance criteria.
+#   agent: javaunittestcasewriter
+
+

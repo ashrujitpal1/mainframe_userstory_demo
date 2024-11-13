@@ -16,9 +16,20 @@ class MainframeUserstoryDemoCrew():
 	llm = LLM(model="ollama/llama3.2", base_url="http://localhost:11434")
 
 	@agent
-	def researcher(self) -> Agent:
+	def userstorycreator(self) -> Agent:
 		return Agent(
-			config=self.agents_config['researcher'],
+			config=self.agents_config['userstorycreator'],
+			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+			verbose=True,
+			llm=self.llm,
+			allow_delegation=False
+		)
+	
+	# User Story reviewer
+	@agent
+	def userstoryreviewer(self) -> Agent:
+		return Agent(
+			config=self.agents_config['userstoryreviewer'],
 			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True,
 			llm=self.llm,
@@ -26,9 +37,16 @@ class MainframeUserstoryDemoCrew():
 		)
 
 	@task
-	def research_task(self) -> Task:
+	def userstorycreator_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['research_task'],
+			config=self.tasks_config['userstorycreator_task'],
+		)
+	
+	@task
+	def userstoryreviewer_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['userstoryreviewer_task'],
+			agent=self.userstoryreviewer()
 		)
 
 	@crew
