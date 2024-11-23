@@ -23,7 +23,8 @@ userstoryreviewer_task:
     Check for any missing or incorrect information.
     If any issues are found, provide suggestions for improvement.
   expected_output: >
-    The output will contain a JSON file with a collection of Jira User Stories with corresponding Name, Title, Acceptance Criteria, Technical Notes, Dependencies, Additional Criteria if applicable and nothing additional.
+    The output will contain a valid JSON file with a collection of Jira User Stories with corresponding Name, Title, Acceptance Criteria, Technical Notes, Dependencies, Additional Criteria if applicable and nothing additional.
+    Make sure you are giving a valid JSON file as output.
   agent: userstoryreviewer
 
 

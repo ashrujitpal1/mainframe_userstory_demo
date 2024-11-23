@@ -34,7 +34,7 @@ RUN poetry install --no-interaction --no-root
 COPY . .
 
 # Install the project
-RUN poetry install --no-interaction
+#RUN poetry install --no-interaction
 
 # Expose the port the app runs on
 EXPOSE 5000

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from datetime import datetime
 from flask import Flask, jsonify, request
 import sys
 from textwrap import dedent
@@ -11,7 +12,7 @@ from mainframe_userstory_demo.MainframeUserStoryDemoCrew import MainframeUserSto
 
 app = Flask(__name__)
 
-@app.route('/generate', methods=['POST'])
+@app.route('/api/generate', methods=['POST'])
 def generate():
     try:
         print("Reached upto here")
@@ -29,11 +30,28 @@ def generate():
         
         # Call the existing run logic
         result = MainframeUserStoryDemoCrew().crew().kickoff(inputs=inputs)
+
+        # Debug information about the result type
+        print(f"Type of result: {type(result)}")
+        print(f"Result value: {result}")
+
+        # Custom response formatting
+        response_data = {
+            'status': 'success',
+            #'timestamp': datetime.datetime.now().isoformat(),
+            'data': str(result)
+        }
         
-        return jsonify({'result': result}), 200
+        return jsonify(response_data), 200
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        error_response = {
+            'status': 'error',
+            'timestamp': datetime.datetime.now().isoformat(),
+            'error': str(e),
+            'type': type(e).__name__
+        }
+        return jsonify(error_response), 500
 
 
 def run():
@@ -132,7 +150,7 @@ if __name__ == '__main__':
     # Check if we want to run as API or command line
     if len(sys.argv) > 1 and sys.argv[1] == 'api':
         # Run as Flask app
-        app.run(host='0.0.0.0', port=5001, debug=False)
+        app.run(host='0.0.0.0', port=5002, debug=False)
     else:
         # Run as command line
         run()
