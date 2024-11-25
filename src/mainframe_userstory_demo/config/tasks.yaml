@@ -1,15 +1,16 @@
 userstorycreator_task:
   description: >
-    Review Business Rules: Understand the below business rules and create Jira User stories.
+    Review Business Rules: Generate user stories for the following business rule to help a Java developer design and 
+            implement a microservices-based application. 
             Business Rules: {topic}
-        User Story Formatting: For each business rule, create a Jira User Story in the format:
-            Title: A concise summary (e.g., "As a [role], I want to [action], so that [benefit].")
-            Acceptance Criteria: List the conditions required for the User Story to be considered complete.
-            Dependencies: Document any dependencies or related systems (e.g., mainframe-specific details).
-            Technical Notes: Include any technical constraints, limitations, or integration notes for mainframe systems to help developers understand the context.
-        Additional Details:
-            Ensure clarity in language for both technical and non-technical stakeholders.
-            Prioritize stories based on dependency mapping or business importance if known
+            User Story Formatting: For each business rule, create a Jira User Story in the format:
+                Title: A concise summary (e.g., "As a [role], I want to [action], so that [benefit].")
+                Acceptance Criteria: List the conditions required for the User Story to be considered complete.
+                Dependencies: Document any dependencies or related systems (e.g., mainframe-specific details).
+                Technical Notes: Include any technical constraints, limitations, or integration notes for mainframe systems to help developers understand the context.
+            Additional Details:
+                Ensure clarity in language for both technical and non-technical stakeholders.
+                Prioritize stories based on dependency mapping or business importance if known
   expected_output: >
     A collection of Jira User Stories with corresponding Acceptance Criteria, Technical Notes, and Dependencies.
   agent: userstorycreator
